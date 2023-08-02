@@ -7,13 +7,15 @@
 
 int GetNoDuplicateValue(int n1, int n2, int n3, int[,,] arr)
 {
-    temp = new Random().Next(10, 100);
-    for (int i = 0; i < n1; i++)
-        for (int j = 0; j < n2; j++)
-            for (int k = 0; k < n3; k++)
+    int temp = new Random().Next(10, 100);
+    for (int i = 0; i < arr.GetLength(0); i++)
+        for (int j = 0; j < arr.GetLength(1); j++)
+            for (int k = 0; k < arr.GetLength(2); k++)
             {
-                arr[i, j, k] = GetNoDuplicateValue(i, j, k);
+                if (arr[i, j, k] == temp)
+                    return 0;
             }
+    return temp;
 }
 
 void PrintTripleArray(int[,,] arr)
@@ -33,12 +35,14 @@ void PrintTripleArray(int[,,] arr)
 
 void FillTripleArray(int[,,] arr)
 {
-    int temp = 0;
     for (int i = 0; i < arr.GetLength(0); i++)
         for (int j = 0; j < arr.GetLength(1); j++)
             for (int k = 0; k < arr.GetLength(2); k++)
             {
-                arr[i, j, k] = GetNoDuplicateValue(i, j, k, arr);
+                do
+                {
+                    arr[i, j, k] = GetNoDuplicateValue(i, j, k, arr);
+                } while (arr[i, j, k] == 0);
             }
 }
 
@@ -50,7 +54,12 @@ int GetNum(string message)
 
 int num1 = GetNum("Введите количество строк массива: ");
 int num2 = GetNum("Введите количество колонок массива: ");
-int num3 = GetNum("Введите размер третей координаты массива: ");
+int num3 = GetNum("Введите размер третьей координаты массива: ");
+if (num1 * num2 * num3 < 90)
+{
 int[,,] tripleArray = new int[num1, num2, num3];
 FillTripleArray(tripleArray);
 PrintTripleArray(tripleArray);
+}
+else
+    Console.WriteLine("Количество элементов матрицы больше количества двузначных чисел!");
