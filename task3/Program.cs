@@ -19,11 +19,11 @@ int[,] MultipleArray(int[,] arr1, int[,] arr2)
     }
     int[,] multArr = new int[maxLegth, maxLegth];
 
-    for (int k = 0; k < arr1.GetLength(0); k++)
+    for (int k = 0; k <= arr1.GetLength(1); k++)
     {
-        for (int i = 0; i < arr1.GetLength(1); i++)
+        for (int i = 0; i < arr1.GetLength(0); i++)
         {
-            for (int j = 0; j < arr2.GetLength(1); j++)
+            for (int j = 0; j < arr2.GetLength(0); j++)
             {
                 //multArr[k, i] += arr1[i, j] * arr2[j, k];
                 multArr[i, k] += arr1[i, j] * arr2[j, k];
@@ -62,7 +62,7 @@ int GetNum(string message)
 int num1 = GetNum("Введите количество строк первого массива: ");
 int num2 = GetNum("Введите количество колонок первого массива: ");
 int[,] doubleArray1 = CreateRandomArray(num1, num2);
-int[,] doubleArray2 = CreateRandomArray(num2, num1);
+int[,] doubleArray2 = CreateRandomArray(num, num1);
 PrintDoubleArray(doubleArray1);
 PrintDoubleArray(doubleArray2);
 Console.WriteLine("Результирующая матрица:");
