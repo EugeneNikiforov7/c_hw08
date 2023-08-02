@@ -8,21 +8,26 @@
 
 int[,] MultipleArray(int[,] arr1, int[,] arr2)
 {
-    // if (arr1.GetLength(0) > arr1.GetLength(1))
-    // {
-        int[,] multArr = new int[arr1.GetLength(0), arr1.GetLength(0)];
-    // }
-    // else
-    // {
-    //     int[,] multArr = new int[arr1.GetLength(1), arr1.GetLength(1)];
-    // }
-    for (int i = 0; i < arr1.GetLength(0); i++)
+    int maxLength = 0;
+    if (arr1.GetLength(0) > arr1.GetLength(1))
     {
-        for (int j = 0; j < arr2.GetLength(1); j++)
+        maxLength = arr1.GetLength(0);
+    }
+    else
+    {
+        maxLength = arr1.GetLength(1);
+    }
+    int[,] multArr = new int[maxLength, maxLength];
+
+    for (int k = 0; k < arr1.GetLength(0); k++)
+    {
+        for (int i = 0; i < arr2.GetLength(1); i++)
         {
-            multArr[i, j] += arr1[i, j] * arr2[i, j];
+            for (int j = 0; j < arr1.GetLength(1); j++)
+            {
+                multArr[k, i] += arr1[k, j] * arr2[j, i];
+            }
         }
-        //        Console.Write($"{sumRows[i]} ");
     }
     return multArr;
 }
@@ -32,7 +37,7 @@ void PrintDoubleArray(int[,] arr)
     for (int i = 0; i < arr.GetLength(0); i++)
     {
         for (int j = 0; j < arr.GetLength(1); j++)
-            Console.Write($"{arr[i, j]} ");
+            Console.Write(arr[i, j].ToString().PadLeft(4));
         Console.WriteLine();
     }
     Console.WriteLine();
@@ -55,11 +60,14 @@ int GetNum(string message)
 
 int num1 = GetNum("Введите количество строк первого массива: ");
 int num2 = GetNum("Введите количество колонок первого массива: ");
-int[,] doubleArray1 = CreateRandomArray(num1, num2);
-int[,] doubleArray2 = CreateRandomArray(num2, num1);
-PrintDoubleArray(doubleArray1);
-PrintDoubleArray(doubleArray2);
-Console.WriteLine("Результирующая матрица:");
-int[,] doubleArray3 = MultipleArray(doubleArray1, doubleArray2);
-PrintDoubleArray(doubleArray3);
-
+if (num1 >= num2)
+{
+    int[,] doubleArray1 = CreateRandomArray(num1, num2);
+    int[,] doubleArray2 = CreateRandomArray(num2, num1);
+    PrintDoubleArray(doubleArray1);
+    PrintDoubleArray(doubleArray2);
+    Console.WriteLine("Результирующая матрица:");
+    int[,] doubleArray3 = MultipleArray(doubleArray1, doubleArray2);
+    PrintDoubleArray(doubleArray3);
+}
+else Console.WriteLine("Невозможно перемножить матрицы таких размеров.");
